@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>檢體管號登入</title>
+<th:block th:include="head :: bootstrap" />
+</head>
+<body>
+
+	<h1 class="text-center">檢體管號登入</h1>
+	<form autocomplete="off" id="user-infoForm"
+		class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12"
+		method="post" th:action="@{/downloadExcel}">
+		<div th:if="${guids}">
+			<table
+				class="table table-responsive table-bordered table-striped table-condensed table-hover">
+				<thead>
+					<tr>
+						<td>##</td>
+						<td><strong>檢體捐贈者</strong></td>
+						<td><strong>計畫/醫院/科別名稱</strong></td>
+						<td><strong>檢體管號</strong></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="guid, iterationStatus: ${guids}">
+						<td th:text="${iterationStatus.count}"></td>
+						<td><input type="text" class="form-control" name="guid"
+							th:value="${guid.key}" disabled="disabled"></input></td>
+						<td><input type="text" class="form-control" name="protocolId"
+							th:value="${guid.value}" disabled="disabled"></input></td>
+						<td><input th:each="amount: ${amounts}" class="form-control" type="text"
+							th:name="${guid.key + '@' + guid.value + '@' + amount}"
+							th:placeholder="輸入第 + ${amount} + 隻管號"></input></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div
+			class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 guid-tube">
+			<input class="btn btn-inverse btn-block btn-lg" type="submit"
+				value="下載 Excel 檔"></input>
+		</div>
+	</form>
+
+</body>
+</html>
