@@ -32,6 +32,8 @@
 							th:value="${guid.value}" disabled="disabled"></input></td>
 						<td><input th:each="amount: ${amounts}" class="form-control" type="text"
 							th:name="${guid.key + '@' + guid.value + '@' + amount}"
+							th:id="${guid.key + '@' + guid.value + '@' + amount}"
+							onkeyPress="autoTab()" onkeyUp="autoTab()" 
 							th:placeholder="輸入第 + ${amount} + 隻管號"></input></td>
 					</tr>
 				</tbody>
